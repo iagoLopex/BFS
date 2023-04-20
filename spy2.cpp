@@ -166,3 +166,58 @@ int main(){
 	//Ex<int>calc;
 	//cout << calc.func(1,1,3);
 }
+/*****************************************************************************************/
+#include <bits/stdc++.h>
+
+using namespace std;
+
+void gera(int **mat, int n){
+	
+	srand(time(0));
+	
+	//ando por cada index e armazeno o endereco de um novo vetor na mesma
+	for(int i=0; i<n; i++){
+		
+		mat[i] = new int[n];
+		
+		//pra cada coluna dessa matriz eu atribuo um valor
+		for(int j=0; j<n; j++){
+			*(*(mat+i)+j) = rand() % 9 + 1;
+		}
+	}
+}
+
+void imprime(int **mat, int n){
+	for(int i=0; i<n; i++){
+		for(int j=0; j<n; j++){
+			cout << *(*(mat+i)+j) << " ";
+		}
+		cout << endl;
+	}
+}
+
+int diagonal(int **mat, int n){
+	int sum=0;
+	for(int i=0; i<n; i++)
+		sum += *(*(mat+i)+i);
+	
+	return sum;
+}
+
+int main(){
+	
+	//tamanho da matriz
+	int n;
+	cin>>n;
+	
+	//crio o vetor de ponteiros, representando cada linha da matriz
+	int **mat = new int*[n];
+	
+	gera(mat, n);
+	imprime(mat, n);
+	cout << "soma da diagonal: " << diagonal(mat, n);
+	
+	for(int i=0; i<n; i++)
+		delete(mat[i]);
+	delete(mat);
+}
